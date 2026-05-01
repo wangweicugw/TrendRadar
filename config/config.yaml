@@ -55,22 +55,20 @@ schedule:
 platforms:
   enabled: true                         # 是否启用热榜平台抓取
   sources:
-    - id: "toutiao"
-      name: "今日头条"
     - id: "baidu"
       name: "百度热搜"
+    - id: "weibo"
+      name: "微博"
+    - id: "toutiao"
+      name: "今日头条"
     - id: "thepaper"
       name: "澎湃新闻"
     - id: "cls-hot"
       name: "财联社热门"
     - id: "ifeng"
       name: "凤凰网"
-    - id: "weibo"
-      name: "微博"
     - id: "douyin"
       name: "抖音"
-    - id: "zhihu"
-      name: "知乎"
 
 
 
@@ -107,15 +105,6 @@ rss:
   # - 正整数：覆盖全局设置，只推送此天数内的文章
   # - 0：禁用此频道的新鲜度过滤，推送所有文章
   feeds:
-    - id: "hacker-news"
-      name: "Hacker News"
-      url: "https://hnrss.org/frontpage"
-
-    - id: "ruanyifeng"
-      name: "阮一峰的网络日志"
-      url: "http://www.ruanyifeng.com/blog/atom.xml"
-      enabled: false
-
     - id: "yahoo-finance"
       name: "雅虎财经"
       url: "https://finance.yahoo.com/news/rssindex"
@@ -159,6 +148,8 @@ rss:
     - id: "fhwcj"
       name: "凤凰网财经的微博"
       url: "https://rssfeed.today/weibo/rss/1988800805"
+
+
 
 
 
@@ -225,7 +216,7 @@ report:
 # 5) 这里决定“筛选路径”，不决定 AI 模型（模型在 ai 段）
 # ===============================================================
 filter:
-  method: "ai"                     # 可选: keyword | ai
+  method: "keyword"                     # 可选: keyword | ai
 
   # AI 模式标签排序开关（仅 ai 模式生效）
   # true: 按标签优先级排序（来自兴趣描述提取顺序）
@@ -298,16 +289,16 @@ display:
   #   1. 在此列表中
   #   2. 下方 regions 中对应开关为 true
   region_order:
-    - new_items                       # 1️⃣ 新增热点区域
     - hotlist                       # 2️⃣ 热榜区域（关键词匹配 / AI 智能筛选）
     - rss                       # 3️⃣ RSS 订阅区域
+    - new_items                       # 1️⃣ 新增热点区域
     - standalone                       # 4️⃣ 独立展示区
     - ai_analysis                       # 5️⃣ AI 分析区域
   regions:
-    new_items: true # 新增热点区域（含热榜新增 + RSS 新增）
     hotlist: true # 热榜区域（关键词匹配 / AI 智能筛选）
     rss: true # RSS 订阅区域
-    standalone: false # 独立展示区（完整热榜/RSS，不受关键词过滤）
+    new_items: true # 新增热点区域（含热榜新增 + RSS 新增）
+    standalone: true # 独立展示区（完整热榜/RSS，不受关键词过滤）
     ai_analysis: false # AI 分析区域
   standalone:
     platforms: ["wallstreetcn-hot"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
